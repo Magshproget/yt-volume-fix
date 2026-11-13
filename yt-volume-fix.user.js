@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Volume Fix
 // @namespace    https://github.com/Magshproget/yt-volume-fix
-// @version      1.3.1
+// @version      1.3.2
 // @description  Perceptual volume curve and customizable mouse wheel step size for YouTube
 // @author       Magshproget
 // @match        *://*.youtube.com/*
@@ -18,8 +18,10 @@
 (() => {
   'use strict';
 
-  // Отримуємо доступ до контексту сторінки YouTube
-  const pageWindow = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
+  // Отримуємо доступ до контексту сторінки YouTube (враховуючи Firefox Xray Wrappers)
+  const pageWindow = (typeof unsafeWindow !== 'undefined' && unsafeWindow.wrappedJSObject)
+    ? unsafeWindow.wrappedJSObject
+    : (typeof unsafeWindow !== 'undefined' ? unsafeWindow : window);
 
   // Зчитування збережених параметрів
   let exponent = GM_getValue('exponent', 2.5);
