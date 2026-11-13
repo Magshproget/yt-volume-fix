@@ -26,10 +26,11 @@ Browser extension (Manifest V3) that maps YouTube's linear volume slider to a pe
 ### Option 1: Tampermonkey (Recommended for auto-updates across devices)
 
 1. Install the [Tampermonkey](https://www.tampermonkey.net/) extension in your browser.
-2. In Chrome, navigate to `chrome://extensions/` and enable "Developer mode" in the top right corner (required by Chromium Manifest V3 to execute userscripts).
-3. Click this direct link: [Install yt-volume-fix.user.js](https://raw.githubusercontent.com/Magshproget/yt-volume-fix/main/yt-volume-fix.user.js).
-4. Tampermonkey will detect the script and prompt you to click "Install".
-5. Updates will be downloaded automatically from this GitHub repository.
+2. In Chrome, navigate to `chrome://extensions/` and enable "Developer mode" in the top right corner.
+3. On the Tampermonkey card, click "Details" and turn on the "Allow user scripts" toggle (required by Chromium Manifest V3 to execute userscripts).
+4. Click this direct link: [Install yt-volume-fix.user.js](https://raw.githubusercontent.com/Magshproget/yt-volume-fix/main/yt-volume-fix.user.js).
+5. Tampermonkey will detect the script and prompt you to click "Install".
+6. Updates will be downloaded automatically from this GitHub repository.
 
 ### Option 2: Standalone Extension (Unpacked)
 
