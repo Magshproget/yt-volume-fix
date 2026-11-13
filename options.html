@@ -29,18 +29,26 @@
       padding: 16px 18px;
       background: var(--bg);
       color: var(--text);
-      width: 310px;
+      width: 320px;
       box-sizing: border-box;
       user-select: none;
     }
     h2 {
-      margin: 0 0 6px 0;
+      margin: 0 0 4px 0;
       font-size: 15px;
       font-weight: 600;
     }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 14px 0 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
     p.desc {
-      margin: 0 0 14px 0;
-      font-size: 12px;
+      margin: 0 0 10px 0;
+      font-size: 11.5px;
       color: #717171;
       line-height: 1.35;
     }
@@ -48,7 +56,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     input[type="range"] {
       flex: 1;
@@ -56,25 +64,25 @@
       cursor: pointer;
     }
     .val-badge {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 700;
-      width: 44px;
+      min-width: 48px;
       text-align: right;
       color: var(--primary);
     }
     .presets {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 20px;
+      gap: 5px;
+      margin-bottom: 12px;
     }
     button.preset {
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 6px 4px;
+      padding: 5px 2px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -82,11 +90,29 @@
       border-color: var(--primary);
       color: var(--primary);
     }
-    .status {
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .checkbox-label input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .separator {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0 10px 0;
+    }
+    .status {
+      font-size: 11.5px;
       color: #0f9d58;
       height: 16px;
       text-align: center;
+      margin-top: 12px;
       opacity: 0;
       transition: opacity 0.2s ease;
     }
@@ -96,20 +122,46 @@
   </style>
 </head>
 <body>
-  <h2>Крива гучності YouTube</h2>
-  <p class="desc">Чим більший степінь, тим точніше та плавніше регулюється тихий звук.</p>
+  <h2>Налаштування звуку</h2>
 
-  <div class="slider-container">
-    <input type="range" id="expSlider" min="1.0" max="4.0" step="0.1" value="2.5">
+  <!-- Секція 1: Степінь кривої -->
+  <div class="section-title">
+    <span>Крива гучності (степінь)</span>
     <span class="val-badge" id="expValue">2.5</span>
   </div>
-
-  <div class="presets">
-    <button class="preset" data-val="1.0">1.0 (Дефолт)</button>
-    <button class="preset" data-val="2.0">2.0 (М'яка)</button>
-    <button class="preset" data-val="2.5">2.5 (Оптим.)</button>
-    <button class="preset" data-val="3.0">3.0 (Висока)</button>
+  <p class="desc">Плавність звуку: чим більше, тим точніше тихий звук.</p>
+  <div class="slider-container">
+    <input type="range" id="expSlider" min="1.0" max="4.0" step="0.1" value="2.5">
   </div>
+  <div class="presets">
+    <button class="preset" data-type="exp" data-val="1.0">1.0 Дефолт</button>
+    <button class="preset" data-type="exp" data-val="2.0">2.0 М'яка</button>
+    <button class="preset" data-type="exp" data-val="2.5">2.5 Оптим.</button>
+    <button class="preset" data-type="exp" data-val="3.0">3.0 Висока</button>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- Секція 2: Кроки колеса мишки -->
+  <div class="section-title">
+    <span>Кроки колеса мишки</span>
+    <span class="val-badge" id="stepsValue">20 (5%)</span>
+  </div>
+  <p class="desc">Кількість кроків від 0% до 100% при прокрутці.</p>
+  <div class="slider-container">
+    <input type="range" id="stepsSlider" min="5" max="50" step="5" value="20">
+  </div>
+  <div class="presets">
+    <button class="preset" data-type="steps" data-val="10">10 (10%)</button>
+    <button class="preset" data-type="steps" data-val="20">20 (5%)</button>
+    <button class="preset" data-type="steps" data-val="25">25 (4%)</button>
+    <button class="preset" data-type="steps" data-val="50">50 (2%)</button>
+  </div>
+
+  <label class="checkbox-label">
+    <input type="checkbox" id="wholePlayerCheckbox">
+    <span>Прокручувати колесом над усім відеоплеєром</span>
+  </label>
 
   <div class="status" id="statusMsg">Збережено автоматично</div>
 

@@ -2,27 +2,35 @@
 (() => {
   'use strict';
 
-  function syncExponent(exponent) {
-    window.postMessage({ type: 'YT_VOLUME_SET_EXPONENT', exponent }, '*');
+  const DEFAULTS = {
+    exponent: 2.5,
+    wheelSteps: 20,
+    scrollWholePlayer: false
+  };
+
+  function syncSettings(settings) {
+    window.postMessage({ type: 'YT_VOLUME_SET_SETTINGS', settings }, '*');
   }
 
-  // Отримуємо поточне збережене значення
-  chrome.storage.sync.get({ exponent: 2.5 }, (items) => {
-    syncExponent(items.exponent);
+  // Отримуємо збережені налаштування
+  chrome.storage.sync.get(DEFAULTS, (items) => {
+    syncSettings(items);
   });
 
-  // Слухаємо оновлення в реальному часі (якщо користувач змінив налаштування)
+  // Слухаємо оновлення в реальному часі
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'sync' && changes.exponent) {
-      syncExponent(changes.exponent.newValue);
+    if (area === 'sync') {
+      chrome.storage.sync.get(DEFAULTS, (items) => {
+        syncSettings(items);
+      });
     }
   });
 
-  // Відповідаємо на запит значення від content.js, якщо той завантажився раніше
+  // Відповідаємо на запит від content.js
   window.addEventListener('message', (event) => {
-    if (event.data && event.data.type === 'YT_VOLUME_REQUEST_EXPONENT') {
-      chrome.storage.sync.get({ exponent: 2.5 }, (items) => {
-        syncExponent(items.exponent);
+    if (event.data && event.data.type === 'YT_VOLUME_REQUEST_SETTINGS') {
+      chrome.storage.sync.get(DEFAULTS, (items) => {
+        syncSettings(items);
       });
     }
   });
