@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Volume Fix - Налаштування</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --text: #1f1f1f;
+      --card: #f8f9fa;
+      --border: #e0e0e0;
+      --primary: #065fd4;
+      --primary-hover: #0551b4;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #202124;
+        --text: #e8eaed;
+        --card: #292a2d;
+        --border: #3c4043;
+        --primary: #3ea6ff;
+        --primary-hover: #65b8ff;
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 16px 18px;
+      background: var(--bg);
+      color: var(--text);
+      width: 310px;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    h2 {
+      margin: 0 0 6px 0;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    p.desc {
+      margin: 0 0 14px 0;
+      font-size: 12px;
+      color: #717171;
+      line-height: 1.35;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .val-badge {
+      font-size: 18px;
+      font-weight: 700;
+      width: 44px;
+      text-align: right;
+      color: var(--primary);
+    }
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    button.preset {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 4px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    button.preset:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .status {
+      font-size: 12px;
+      color: #0f9d58;
+      height: 16px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .status.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h2>Крива гучності YouTube</h2>
+  <p class="desc">Чим більший степінь, тим точніше та плавніше регулюється тихий звук.</p>
+
+  <div class="slider-container">
+    <input type="range" id="expSlider" min="1.0" max="4.0" step="0.1" value="2.5">
+    <span class="val-badge" id="expValue">2.5</span>
+  </div>
+
+  <div class="presets">
+    <button class="preset" data-val="1.0">1.0 (Дефолт)</button>
+    <button class="preset" data-val="2.0">2.0 (М'яка)</button>
+    <button class="preset" data-val="2.5">2.5 (Оптим.)</button>
+    <button class="preset" data-val="3.0">3.0 (Висока)</button>
+  </div>
+
+  <div class="status" id="statusMsg">Збережено автоматично</div>
+
+  <script src="options.js"></script>
+</body>
+</html>
